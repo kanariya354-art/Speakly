@@ -802,41 +802,42 @@ footer a:hover { color: rgba(255,255,255,.7); }
   .pricing-sec         { padding: 48px 0; }
   .faq-sec             { padding: 48px 0; }
 
-  /* ── FV ── */
-  .fv                  { height: 520px; min-height: unset; }
-  .fv-bg               { position: absolute; inset: 0; }
-  /* 人物を右寄せ → テキストエリア（左側）に背景が来て文字と被らない */
-  .fv-bg img           { width: 100%; height: 100%; object-fit: cover; object-position: right top; }
-  /* 対角グラデーション：テキストがある左上を濃く、右下に向けて薄く */
-  .fv-overlay          {
-    background: linear-gradient(
-      135deg,
-      rgba(8,18,48,.88) 0%,
-      rgba(8,18,48,.75) 35%,
-      rgba(8,18,48,.45) 65%,
-      rgba(8,18,48,.15) 100%
-    );
+  /* ── FV：モバイルは画像上・テキスト下の縦積みレイアウト ── */
+  .fv                  { height: auto; display: flex; flex-direction: column; }
+
+  /* 画像エリア：テキストと被らずフル表示 */
+  .fv-bg               { position: relative; inset: auto; width: 100%; height: 260px; order: 1; flex-shrink: 0; }
+  .fv-bg img           { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; }
+
+  /* オーバーレイは不要（画像を綺麗に見せる） */
+  .fv-overlay          { display: none; }
+
+  /* テキストエリア：濃紺背景でしっかり読める */
+  .fv-content          {
+    position: relative; inset: auto; order: 2;
+    max-width: 100%;
+    background: linear-gradient(135deg, #0B1F4A 0%, #1A5FA8 100%);
+    padding: 28px 22px 30px;
+    justify-content: flex-start;
   }
-  /* テキストブロックに薄い背景を敷いて可読性を担保 */
+  /* テキストブロックの独自背景をリセット */
   .fv-text-block       {
-    background: rgba(8,18,48,.30);
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
-    border-radius: 16px;
-    padding: 22px 20px 20px;
+    background: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-radius: 0;
+    padding: 0;
     width: 100%;
   }
-  .fv-content          { padding: 40px 20px 32px; justify-content: center; }
-  .fv-h1               { font-size: 30px; line-height: 1.35; margin-bottom: 12px; }
+  .fv-h1               { font-size: 28px; line-height: 1.35; margin-bottom: 10px; }
   .fv-sub              { font-size: 13px; margin-bottom: 20px; }
   .fv-micro            { font-size: 11px; margin-bottom: 12px; }
-  /* CTAボタン：余白を広げてタップしやすく */
   .fv-cta-btn          {
     width: 100%; text-align: center;
-    font-size: 15px; padding: 18px 20px;
-    margin-bottom: 16px; border-radius: 50px;
+    font-size: 15px; padding: 17px 20px;
+    margin-bottom: 14px; border-radius: 50px;
   }
-  .fv-ribbon-img       { height: 38px; }
+  .fv-ribbon-img       { height: 36px; }
   .fv-medals           { display: none; }
 
   /* ── features bar ── */
@@ -938,10 +939,10 @@ footer a:hover { color: rgba(255,255,255,.7); }
     padding: 0 0 16px;
   }
   .review-photo        {
-    width: 100%; height: 200px;
-    border-radius: 0;        /* カード角丸と自然につながる */
+    width: 100%; height: 260px;
+    border-radius: 0;
     object-fit: cover;
-    object-position: center 40%; /* 顔が映るよう下方向にシフト */
+    object-position: center 40%;
     flex-shrink: 0;
     display: block;
   }
@@ -1010,9 +1011,10 @@ footer a:hover { color: rgba(255,255,255,.7); }
   .h-btn-fill          { font-size: 10px; padding: 7px 10px; white-space: nowrap; }
 
   /* FV */
-  .fv                  { height: 480px; }
-  .fv-content          { padding: 32px 16px 28px; }
-  .fv-text-block       { padding: 18px 16px 16px; }
+  .fv-bg               { height: 220px; }
+  .fv-content          { padding: 22px 18px 26px; }
+  .fv-h1               { font-size: 24px; }
+  .fv-sub              { font-size: 12px; margin-bottom: 16px; }
   .fv-h1               { font-size: 26px; }
   .fv-sub              { font-size: 12px; margin-bottom: 20px; }
   .fv-cta-btn          { font-size: 14px; padding: 15px 16px; }

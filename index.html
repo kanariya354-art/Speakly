@@ -4,6 +4,33 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Speakly（スピークリー）| スキマ時間が、英語力になる。</title>
+
+<!-- ===== ファビコン ===== -->
+<link rel="icon"             type="image/png" sizes="32x32" href="images/favicon.jpg">
+<link rel="icon"             type="image/png" sizes="16x16" href="images/favicon.jpg">
+<link rel="apple-touch-icon" sizes="180x180"               href="images/favicon.jpg">
+<!-- ======================== -->
+
+<!-- ===== SEO / SNS シェア用 OGP ===== -->
+<meta name="description" content="忙しい30代でも続けられるオンライン英会話。24時間予約可能・ネイティブ講師多数・入学金0円。まずは2回無料体験レッスンへ。">
+
+<!-- Open Graph（Facebook / LINE / Slack など） -->
+<meta property="og:type"        content="website">
+<meta property="og:site_name"   content="Speakly（スピークリー）">
+<meta property="og:title"       content="【限定50名】スキマ時間が、英語力になる。| Speakly">
+<meta property="og:description" content="忙しい30代でも続けられるオンライン英会話。24時間予約可能・ネイティブ講師多数・入学金0円。まずは2回無料体験レッスンへ。">
+<meta property="og:image"       content="images/ogp.jpg">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="671">
+<meta property="og:locale"      content="ja_JP">
+
+<!-- Twitter Card（X / Twitter） -->
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="【限定50名】スキマ時間が、英語力になる。| Speakly">
+<meta name="twitter:description" content="忙しい30代でも続けられるオンライン英会話。24時間予約可能・ネイティブ講師多数・入学金0円。まずは2回無料体験レッスンへ。">
+<meta name="twitter:image"       content="images/ogp.jpg">
+<!-- ===================================== -->
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -776,15 +803,17 @@ footer a:hover { color: rgba(255,255,255,.7); }
   .faq-sec             { padding: 48px 0; }
 
   /* ── FV ── */
-  .fv                  { height: 480px; }
-  .fv-bg img           { height: 480px; object-position: 70% top; }
+  /* 高さ固定 / 背景imgはinset:0の親に合わせてheight:100%で自動充填（px指定不要） */
+  .fv                  { height: 480px; min-height: unset; }
+  .fv-bg               { position: absolute; inset: 0; }
+  .fv-bg img           { width: 100%; height: 100%; object-fit: cover; object-position: 70% top; }
   /* モバイルは全体に濃いめのオーバーレイで文字を読みやすく */
   .fv-overlay          {
     background: linear-gradient(
       to bottom,
-      rgba(8,18,48,.72) 0%,
-      rgba(8,18,48,.62) 60%,
-      rgba(8,18,48,.45) 100%
+      rgba(8,18,48,.75) 0%,
+      rgba(8,18,48,.65) 55%,
+      rgba(8,18,48,.40) 100%
     );
   }
   .fv-content          { padding: 44px 24px 32px; justify-content: flex-start; }
@@ -890,13 +919,27 @@ footer a:hover { color: rgba(255,255,255,.7); }
   /* ── REVIEWS ── */
   .reviews-heading     { font-size: 20px; margin-bottom: 22px; }
   .reviews-cols        { grid-template-columns: 1fr; gap: 14px; margin-bottom: 36px; }
-  .review-card         { padding: 20px 18px 18px; }
-  .review-qq           { font-size: 44px; margin-bottom: 10px; }
-  /* 写真を上・テキストを下に縦積みレイアウト */
-  .review-body         { flex-direction: column; gap: 14px; margin-bottom: 16px; }
-  .review-photo        { width: 100%; height: 180px; border-radius: 8px; object-position: center 15%; }
-  .review-txt          { font-size: 13.5px; line-height: 1.85; }
-  .review-attr         { font-size: 12px; }
+  .review-card         { padding: 0 0 18px; overflow: hidden; }
+  .review-qq           { font-size: 44px; margin: 14px 18px 8px; }
+  /* 写真：カード上部フル幅で配置（パディング内に入れない） */
+  .review-body         {
+    flex-direction: column;
+    align-items: stretch;   /* flex-start を上書きして確実にフル幅に */
+    gap: 14px;
+    margin-bottom: 0;
+    padding: 0 0 16px;
+  }
+  .review-photo        {
+    width: 100%; height: 200px;
+    border-radius: 0;        /* カード角丸と自然につながる */
+    object-fit: cover;
+    object-position: center 20%;
+    flex-shrink: 0;
+    display: block;
+  }
+  .review-txt          { font-size: 13.5px; line-height: 1.85; padding: 0 18px; }
+  .review-divider      { margin: 0 18px 14px; }
+  .review-attr         { font-size: 12px; padding: 0 18px; }
 
   /* ── PRICING ── */
   .pricing-heading     { font-size: 21px; margin-bottom: 22px; }
@@ -959,8 +1002,8 @@ footer a:hover { color: rgba(255,255,255,.7); }
   .h-btn-fill          { font-size: 10px; padding: 7px 10px; white-space: nowrap; }
 
   /* FV */
-  .fv                  { height: 460px; }
-  .fv-bg img           { height: 460px; }
+  .fv                  { height: 440px; }
+  /* .fv-bg img は 768px ルールの width:100%; height:100% を継承 */
   .fv-content          { padding: 36px 18px 28px; }
   .fv-h1               { font-size: 26px; }
   .fv-sub              { font-size: 12px; margin-bottom: 20px; }
@@ -994,9 +1037,12 @@ footer a:hover { color: rgba(255,255,255,.7); }
   .teacher-quote       { font-size: 12px; padding: 8px 12px; }
 
   /* REVIEWS */
-  .review-card         { padding: 18px 14px 14px; }
-  .review-photo        { height: 160px; }
-  .review-txt          { font-size: 13px; }
+  .review-card         { padding: 0 0 14px; }
+  .review-qq           { margin: 12px 14px 6px; }
+  .review-photo        { height: 170px; }
+  .review-txt          { font-size: 13px; padding: 0 14px; }
+  .review-divider      { margin: 0 14px 12px; }
+  .review-attr         { padding: 0 14px; }
 
   /* STEPS */
   .steps-cols          { grid-template-columns: 1fr; gap: 20px; }

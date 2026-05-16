@@ -776,70 +776,143 @@ footer a:hover { color: rgba(255,255,255,.7); }
   .faq-sec             { padding: 48px 0; }
 
   /* ── FV ── */
-  .fv                  { height: 420px; }
-  .fv-bg img           { height: 420px; }
-  .fv-content          { padding: 28px 20px 130px; }
-  .fv-overlay          { background: linear-gradient(to right, rgba(8,18,48,.82) 0%, rgba(8,18,48,.60) 50%, rgba(8,18,48,.15) 80%, transparent 100%); }
-  .fv-h1               { font-size: 28px; margin-bottom: 8px; }
-  .fv-sub              { font-size: 13px; margin-bottom: 16px; }
-  .fv-cta-btn          { font-size: 13px; padding: 12px 24px; margin-bottom: 10px; }
-  .fv-ribbon-img       { height: 34px; }
-  .fv-medals           { right: 50%; transform: translateX(50%); bottom: 0; gap: 6px; }
-  .fv-medals img       { height: 105px; }
+  .fv                  { height: 480px; }
+  .fv-bg img           { height: 480px; object-position: 70% top; }
+  /* モバイルは全体に濃いめのオーバーレイで文字を読みやすく */
+  .fv-overlay          {
+    background: linear-gradient(
+      to bottom,
+      rgba(8,18,48,.72) 0%,
+      rgba(8,18,48,.62) 60%,
+      rgba(8,18,48,.45) 100%
+    );
+  }
+  .fv-content          { padding: 44px 24px 32px; justify-content: flex-start; }
+  .fv-h1               { font-size: 30px; line-height: 1.3; margin-bottom: 10px; }
+  .fv-sub              { font-size: 13px; margin-bottom: 24px; }
+  .fv-micro            { font-size: 11px; margin-bottom: 10px; }
+  /* CTAボタンをフル幅で押しやすく */
+  .fv-cta-btn          {
+    width: 100%; text-align: center;
+    font-size: 15px; padding: 16px 20px;
+    margin-bottom: 14px; border-radius: 50px;
+  }
+  /* リボンを少し大きく */
+  .fv-ribbon-img       { height: 40px; }
+  /* メダルはモバイルで非表示（STATSセクションで代替） */
+  .fv-medals           { display: none; }
 
   /* ── features bar ── */
-  .fv-features         { height: auto; padding: 18px 16px; }
-  .fv-feat-icons       { grid-template-columns: repeat(2, 1fr); gap: 12px; max-width: 100%; }
-  .fv-feat-head        { font-size: 11px; margin-bottom: 12px; }
+  .fv-features         { height: auto; padding: 24px 16px 20px; }
+  .fv-feat-head        { font-size: 11px; margin-bottom: 16px; }
+  /* モバイル：アイコンを上・テキストを下に並べ替え、2×2グリッド */
+  .fv-feat-icons       { grid-template-columns: repeat(2, 1fr); gap: 16px 8px; max-width: 100%; }
+  .fv-feat-item        { flex-direction: column; align-items: center; gap: 8px; padding: 12px 8px; background: var(--blue-pale); border-radius: 12px; }
+  .fv-feat-ic          { width: 44px; height: 44px; font-size: 22px; border-radius: 10px; }
+  .fv-feat-txt         { font-size: 12px; text-align: center; line-height: 1.5; }
 
   /* ── PAIN ── */
   .pain-in             { padding: 0 16px; }
   .pain-heading        { font-size: 19px; margin-bottom: 20px; }
-  .pain-body           { grid-template-columns: 1fr; gap: 14px; }
-  .pain-photo          { margin-left: 0; }
-  .pain-photo img      { min-height: 200px; max-height: 260px; object-position: center 10%; }
-  .pain-resolve        { margin-top: 20px; padding: 14px 20px; border-radius: 16px; gap: 10px; flex-wrap: wrap; justify-content: center; }
-  .pain-resolve-txt    { font-size: 17px; text-align: center; }
+  .pain-body           { grid-template-columns: 1fr; gap: 12px; }
+  /* カード：モバイルでpaddingをゆったりに */
+  .pain-item           { padding: 14px 16px; gap: 14px; }
+  .pain-item-txt       { font-size: 14px; }
+  .pain-ic             { width: 40px; height: 40px; }
+  /* 写真：高さを確保して存在感を出す */
+  .pain-photo          { margin-left: 0; border-radius: 12px; }
+  .pain-photo img      { min-height: 240px; max-height: 300px; object-position: center 10%; }
+  /* resolveバー：横スクロールしないようシンプルに */
+  .pain-resolve        { margin-top: 20px; padding: 16px 18px; border-radius: 14px; gap: 10px; flex-wrap: wrap; justify-content: center; text-align: center; }
+  .pain-resolve-ic     { display: none; }
+  .pain-resolve-txt    { font-size: 17px; font-weight: 900; }
 
   /* ── BENEFIT ── */
-  .benefit-box         { margin: 0 16px; padding: 28px 18px 32px; }
-  .benefit-cols        { grid-template-columns: 1fr; gap: 28px; }
-  .benefit-heading     { font-size: 19px; margin-bottom: 22px; }
+  .benefit-box         { margin: 0 16px; padding: 28px 16px 28px; }
+  .benefit-heading     { font-size: 19px; margin-bottom: 24px; }
+  .benefit-cols        { grid-template-columns: 1fr; gap: 14px; }
+  /* カード化：各コラムに薄青背景をつける */
+  .benefit-col         { background: var(--blue-pale); border-radius: 14px; padding: 20px 18px; }
+  /* 番号バッジとアイコン・タイトルを横並びに */
+  .benefit-num         { width: 32px; height: 32px; font-size: 11px; margin-bottom: 14px; }
+  .benefit-icon-title  { gap: 12px; margin-bottom: 12px; }
+  .benefit-icon svg    { width: 36px; height: 36px; }
+  .benefit-title       { font-size: 14px; }
+  .benefit-divider     { margin-bottom: 12px; }
+  .benefit-desc        { font-size: 13px; line-height: 1.75; }
+  /* 説明文の強制改行をモバイルでは無効化 */
+  .benefit-desc br     { display: none; }
 
   /* ── STATS ── */
   .stats-in            { padding: 0 16px; }
-  .stats-heading       { font-size: 21px; margin-bottom: 30px; }
-  .stats-cols          { grid-template-columns: 1fr; gap: 32px; }
-  .stat-ic-wrap img    { width: 80px; height: 80px; }
-  .stat-num            { font-size: 40px; }
+  .stats-heading       { font-size: 21px; margin-bottom: 28px; }
+  /* 横カードレイアウト：アイコン左・数字右 */
+  .stats-cols          { grid-template-columns: 1fr; gap: 0; margin-bottom: 20px; }
+  .stat-col            {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    grid-template-rows: auto auto auto;
+    column-gap: 18px;
+    align-items: center;
+    text-align: left;
+    padding: 18px 4px;
+    border-bottom: 1px solid #E4EFF8;
+  }
+  .stat-col:last-child { border-bottom: none; }
+  .stat-ic-wrap        { grid-row: 1 / 4; margin: 0; }
+  .stat-ic-wrap img    { width: 72px; height: 72px; object-fit: contain; }
+  .stat-lbl            { font-size: 13px; margin-bottom: 2px; align-self: end; }
+  .stat-num            { font-size: 40px; line-height: 1.1; align-self: center; }
+  .stat-num-sub        { font-size: 14px; margin-top: 2px; align-self: start; }
 
   /* ── TEACHERS ── */
   .teachers-heading    { font-size: 22px; }
-  .teachers-sub        { font-size: 13px; margin-bottom: 28px; }
-  .teacher-list        { gap: 20px; }
+  /* サブテキストの強制改行を非表示 */
+  .teachers-sub        { font-size: 13px; margin-bottom: 24px; }
+  .teachers-sub br     { display: none; }
+  .teacher-list        { gap: 16px; }
   .teacher-item,
-  .teacher-item--rev   { grid-template-columns: 1fr; min-height: unset; }
-  .teacher-photo-wrap  { height: 240px; }
+  .teacher-item--rev   { grid-template-columns: 1fr; min-height: unset; border-radius: 16px; }
+  /* 写真エリア：縦長で人物がよく見えるように */
+  .teacher-photo-wrap  { height: 260px; }
   .teacher-item--rev .teacher-photo-wrap { order: 0; }
   .teacher-item--rev .teacher-info       { order: 0; }
-  .teacher-info        { padding: 22px 18px; }
+  .teacher-info        { padding: 20px 18px 22px; }
+  .teacher-tags        { gap: 6px; margin-bottom: 10px; }
+  .teacher-tag         { font-size: 10px; padding: 3px 12px; }
   .teacher-name        { font-size: 20px; margin-bottom: 8px; }
-  .teacher-desc        { font-size: 13px; margin-bottom: 14px; }
+  /* 説明文の強制改行を非表示・フォントサイズ調整 */
+  .teacher-desc        { font-size: 13px; margin-bottom: 12px; line-height: 1.75; }
+  .teacher-desc br     { display: none; }
+  /* 引用ボックスをコンパクトに */
+  .teacher-quote       { font-size: 13px; padding: 10px 14px; line-height: 1.7; }
 
   /* ── REVIEWS ── */
-  .reviews-heading     { font-size: 21px; margin-bottom: 24px; }
-  .reviews-cols        { grid-template-columns: 1fr; gap: 14px; }
-  .review-card         { padding: 20px 18px 16px; }
-  .review-qq           { font-size: 48px; margin-bottom: 10px; }
-  .review-photo        { width: 90px; height: 104px; }
+  .reviews-heading     { font-size: 20px; margin-bottom: 22px; }
+  .reviews-cols        { grid-template-columns: 1fr; gap: 14px; margin-bottom: 36px; }
+  .review-card         { padding: 20px 18px 18px; }
+  .review-qq           { font-size: 44px; margin-bottom: 10px; }
+  /* 写真を上・テキストを下に縦積みレイアウト */
+  .review-body         { flex-direction: column; gap: 14px; margin-bottom: 16px; }
+  .review-photo        { width: 100%; height: 180px; border-radius: 8px; object-position: center 15%; }
+  .review-txt          { font-size: 13.5px; line-height: 1.85; }
+  .review-attr         { font-size: 12px; }
 
   /* ── PRICING ── */
-  .pricing-heading     { font-size: 21px; margin-bottom: 24px; }
-  .pricing-zero-bar    { padding: 14px 20px; max-width: 100%; gap: 14px; }
+  .pricing-heading     { font-size: 21px; margin-bottom: 22px; }
+  .pricing-zero-bar    { padding: 14px 18px; max-width: 100%; gap: 12px; margin-bottom: 24px; }
+  .pricing-yen-ic      { width: 42px; height: 42px; font-size: 18px; }
   .pricing-zero-label  { font-size: 13px; }
   .pricing-zero-val    { font-size: 20px; }
-  .pricing-cols        { grid-template-columns: 1fr; gap: 20px; }
-  .plan-price          { font-size: 34px; }
+  .pricing-cols        { grid-template-columns: 1fr; gap: 22px; }
+  .plan-card           { padding: 22px 18px 18px; }
+  .plan-name-tag       { font-size: 11px; padding: 4px 14px; margin-bottom: 10px; }
+  .plan-cnt            { font-size: 14px; margin-bottom: 8px; }
+  .plan-price          { font-size: 36px; margin-bottom: 10px; }
+  .plan-desc           { font-size: 12.5px; margin-bottom: 14px; }
+  .plan-icon           { width: 36px; height: 36px; }
+  .plan-icon svg       { width: 36px; height: 36px; }
+  .pricing-note        { font-size: 12.5px; }
 
   /* ── STEPS ── */
   .steps-cols          { grid-template-columns: 1fr 1fr; gap: 24px 12px; }
@@ -848,29 +921,34 @@ footer a:hover { color: rgba(255,255,255,.7); }
   .step-circle .step-n { font-size: 20px; }
 
   /* ── FAQ ── */
-  .faq-heading         { font-size: 24px; }
-  .faq-sub             { font-size: 13px; margin-bottom: 32px; }
-  .faq-q-txt           { font-size: 13.5px; }
-  .faq-a-txt           { font-size: 13px; }
+  .faq-heading         { font-size: 24px; margin-bottom: 8px; }
+  .faq-sub             { font-size: 13px; margin-bottom: 28px; }
+  .faq-list            { gap: 12px; }
+  details.faq-card summary { padding: 16px 18px; gap: 12px; }
   .faq-q-badge,
   .faq-a-badge         { width: 32px; height: 32px; font-size: 13px; flex-shrink: 0; }
+  .faq-q-txt           { font-size: 13.5px; }
+  .faq-a-row           { padding: 14px 18px 18px; gap: 12px; }
+  .faq-a-txt           { font-size: 13px; padding-top: 4px; }
+  .faq-sep             { margin: 0 18px; }
 
-  /* ── FINAL CTA ── */
-  .final-cta-sec       { height: auto; min-height: 360px; }
-  .final-cta-bg        { width: 100%; right: 0; }
-  .final-cta-overlay   {
-    background: linear-gradient(
-      to right,
-      rgba(255,255,255,1)   0%,
-      rgba(255,255,255,.98) 42%,
-      rgba(255,255,255,.72) 65%,
-      rgba(255,255,255,0)   100%
-    );
+  /* ── FINAL CTA：縦積みレイアウトに全面変更 ── */
+  .final-cta-sec       { height: auto; display: flex; flex-direction: column; }
+  .final-cta-overlay   { display: none; }
+  .final-cta-bg        { position: relative; right: auto; top: auto; width: 100%; height: 220px; order: 2; }
+  .final-cta-bg img    { object-position: center 20%; }
+  .final-cta-body      {
+    position: relative; inset: auto; order: 1;
+    max-width: 100%; padding: 40px 24px 32px;
+    background: linear-gradient(135deg, var(--white) 0%, var(--blue-pale) 100%);
   }
-  .final-cta-body      { max-width: 78%; padding: 36px 20px; }
-  .final-cta-h2        { font-size: 24px; margin-bottom: 12px; }
-  .final-cta-desc      { font-size: 13px; margin-bottom: 20px; }
-  .final-cta-body .btn-orange { font-size: 13px; padding: 13px 24px; }
+  .final-cta-h2        { font-size: 26px; margin-bottom: 14px; }
+  .final-cta-desc      { font-size: 13.5px; margin-bottom: 24px; }
+  .final-cta-body .btn-orange {
+    width: 100%; align-self: stretch; justify-content: center;
+    font-size: 15px; padding: 16px 20px;
+  }
+  .final-cta-note      { font-size: 12px; }
 }
 
 /* ============================================================
@@ -881,37 +959,79 @@ footer a:hover { color: rgba(255,255,255,.7); }
   .h-btn-fill          { font-size: 10px; padding: 7px 10px; white-space: nowrap; }
 
   /* FV */
-  .fv                  { height: 380px; }
-  .fv-bg img           { height: 380px; }
-  .fv-content          { padding: 24px 16px 120px; }
-  .fv-h1               { font-size: 24px; }
-  .fv-sub              { font-size: 12px; }
-  .fv-cta-btn          { font-size: 12px; padding: 11px 20px; }
-  .fv-medals img       { height: 90px; }
-  .fv-feat-ic          { width: 34px; height: 34px; font-size: 15px; }
-  .fv-feat-txt         { font-size: 10px; }
+  .fv                  { height: 460px; }
+  .fv-bg img           { height: 460px; }
+  .fv-content          { padding: 36px 18px 28px; }
+  .fv-h1               { font-size: 26px; }
+  .fv-sub              { font-size: 12px; margin-bottom: 20px; }
+  .fv-cta-btn          { font-size: 14px; padding: 15px 16px; }
+  .fv-feat-ic          { width: 40px; height: 40px; font-size: 20px; }
+  .fv-feat-txt         { font-size: 11px; }
 
   /* PAIN */
-  .pain-resolve        { padding: 12px 14px; }
+  .pain-item           { padding: 12px 14px; gap: 12px; }
+  .pain-item-txt       { font-size: 13px; }
+  .pain-photo img      { min-height: 210px; }
+  .pain-resolve        { padding: 14px 14px; }
   .pain-resolve-txt    { font-size: 15px; }
-  .pain-resolve-ic svg { width: 26px; height: 26px; }
+
+  /* BENEFIT */
+  .benefit-box         { margin: 0 12px; padding: 22px 14px 24px; }
+  .benefit-col         { padding: 16px 14px; }
+  .benefit-num         { width: 28px; height: 28px; font-size: 10px; }
+  .benefit-title       { font-size: 13px; }
+
+  /* STATS */
+  .stat-ic-wrap img    { width: 60px; height: 60px; }
+  .stat-col            { column-gap: 14px; padding: 16px 2px; }
+  .stat-num            { font-size: 36px; }
 
   /* TEACHERS */
-  .teacher-photo-wrap  { height: 200px; }
-  .teacher-info        { padding: 18px 14px; }
+  .teacher-photo-wrap  { height: 220px; }
+  .teacher-info        { padding: 16px 14px 18px; }
   .teacher-name        { font-size: 18px; }
+  .teacher-desc        { font-size: 12.5px; }
+  .teacher-quote       { font-size: 12px; padding: 8px 12px; }
+
+  /* REVIEWS */
+  .review-card         { padding: 18px 14px 14px; }
+  .review-photo        { height: 160px; }
+  .review-txt          { font-size: 13px; }
 
   /* STEPS */
   .steps-cols          { grid-template-columns: 1fr; gap: 20px; }
 
-  /* FAQ */
-  details.faq-card summary { padding: 16px 14px; gap: 10px; }
+  /* ── PRICING ── */
+  .pricing-heading     { font-size: 19px; }
+  .pricing-zero-bar    { padding: 12px 14px; gap: 10px; }
+  .pricing-yen-ic      { width: 38px; height: 38px; font-size: 16px; }
+  .pricing-zero-label  { font-size: 12px; }
+  .pricing-zero-val    { font-size: 18px; }
+  .plan-card           { padding: 18px 14px 16px; }
+  .plan-name-tag       { font-size: 10px; padding: 3px 12px; }
+  .plan-cnt            { font-size: 13px; }
+  .plan-price          { font-size: 32px; }
+  .plan-desc           { font-size: 12px; }
+  .plan-icon           { width: 32px; height: 32px; }
+  .plan-icon svg       { width: 32px; height: 32px; }
+  .pricing-note        { font-size: 12px; }
+
+  /* ── FAQ ── */
+  details.faq-card summary { padding: 14px 14px; gap: 10px; }
+  .faq-q-badge,
+  .faq-a-badge         { width: 30px; height: 30px; font-size: 12px; }
+  .faq-q-txt           { font-size: 13px; }
   .faq-a-row           { padding: 12px 14px 16px; gap: 10px; }
+  .faq-a-txt           { font-size: 12.5px; }
   .faq-sep             { margin: 0 14px; }
 
-  /* FINAL CTA */
-  .final-cta-body      { max-width: 88%; }
-  .final-cta-h2        { font-size: 22px; }
+  /* ── FINAL CTA：縦積みのまま小画面調整 ── */
+  .final-cta-bg        { height: 180px; }
+  .final-cta-body      { padding: 28px 16px 24px; }
+  .final-cta-h2        { font-size: 22px; margin-bottom: 10px; }
+  .final-cta-desc      { font-size: 13px; margin-bottom: 20px; }
+  .final-cta-body .btn-orange { font-size: 14px; padding: 15px 16px; }
+  .final-cta-note      { font-size: 11.5px; }
 }
 </style>
 </head>

@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speakly（スピークリー）| スキマ時間が、英語力になる。</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   RESET & BASE
+============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blue:       #1A5FA8;
+  --blue-mid:   #2E7EC1;
+  --blue-light: #E8F4FC;
+  --blue-pale:  #F0F7FD;
+  --orange:     #F47B20;
+  --orange-lt:  #FFF3E8;
+  --gray-bg:    #F5F7FA;
+  --gray-text:  #555;
+  --text:       #222;
+  --white:      #fff;
+  --border:     #D6E8F5;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); font-size: 15px; line-height: 1.75; }
+img  { display: block; max-width: 100%; }
+a    { text-decoration: none; color: inherit; }
+
+.inner { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+.inner-lg { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+/* ============================================================
+   HEADER
+============================================================ */
+header {
+  position: sticky; top: 0; z-index: 200;
+  background: var(--white);
+  border-bottom: 1px solid #e0eaf4;
+  height: 60px;
+  display: flex; align-items: center;
+}
+.header-in {
+  max-width: 1100px; margin: 0 auto; padding: 0 28px;
+  width: 100%; display: flex; align-items: center; justify-content: space-between;
+}
+.logo { font-size: 20px; font-weight: 900; color: var(--blue); letter-spacing: .06em; }
+.logo span { color: var(--orange); }
+.header-nav { display: flex; gap: 10px; align-items: center; }
+.h-btn-outline {
+  border: 1.5px solid var(--blue); color: var(--blue);
+  font-size: 12px; font-weight: 700; padding: 7px 16px;
+  border-radius: 4px; letter-spacing: .04em;
+  transition: background .15s, color .15s;
+}
+.h-btn-outline:hover { background: var(--blue); color: #fff; }
+.h-btn-fill {
+  background: var(--orange); color: #fff;
+  font-size: 12px; font-weight: 700; padding: 9px 18px;
+  border-radius: 4px; letter-spacing: .04em;
+  transition: opacity .15s;
+}
+.h-btn-fill:hover { opacity: .85; }
+
+/* ============================================================
+   SHARED PARTS
+============================================================ */
+.sec-label {
+  font-size: 11px; font-weight: 700; letter-spacing: .14em;
+  color: var(--blue-mid); display: block; margin-bottom: 8px; text-align: center;
+}
+.sec-title {
+  font-size: 24px; font-weight: 900; text-align: center;
+  line-height: 1.45; margin-bottom: 48px; color: var(--text);
+}
+.sec-title em { color: var(--blue); font-style: normal; }
+
+.btn-orange {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  background: var(--orange); color: #fff;
+  font-size: 15px; font-weight: 700; padding: 16px 44px;
+  border-radius: 50px; letter-spacing: .06em;
+  box-shadow: 0 6px 24px rgba(244,123,32,.32);
+  transition: transform .15s, box-shadow .15s;
+}
+.btn-orange:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(244,123,32,.4); }
+.btn-sub-note { display: block; text-align: center; font-size: 11.5px; color: #888; margin-top: 10px; letter-spacing: .04em; }
+
+section { padding: 76px 0; }
+.sec-blue { background: var(--blue-light); }
+
+/* ============================================================
+   ① FV  (設計サイズ 1366 × 1106px : ヒーロー886px + バー220px)
+============================================================ */
+.fv {
+  position: relative;
+  width: 100%;
+  height: calc(100vw * 886 / 1366);
+  max-height: 886px;
+  min-height: 480px;
+  overflow: hidden;
+}
+/* background image — full bleed */
+.fv-bg {
+  position: absolute; inset: 0; z-index: 0;
+}
+.fv-bg img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: 60% top;
+}
+/* left-side dark gradient — やや濃いめで視認性UP */
+.fv-overlay {
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(
+    to right,
+    rgba(8,18,48,.75) 0%,
+    rgba(8,18,48,.58) 32%,
+    rgba(8,18,48,.20) 55%,
+    transparent 72%
+  );
+}
+/* content wrapper — 縦中央揃え */
+.fv-content {
+  position: absolute; inset: 0; z-index: 2;
+  max-width: 1366px; margin: 0 auto; left: 0; right: 0;
+  padding: 4% 4%;
+  display: flex; flex-direction: column; justify-content: center;
+}
+/* ── text block (left) ── */
+.fv-text-block { display: flex; flex-direction: column; align-items: flex-start; }
+.fv-h1 {
+  font-size: clamp(32px, 4.5vw, 62px);
+  font-weight: 900; line-height: 1.2;
+  color: #fff; letter-spacing: .02em; margin-bottom: .8%;
+  text-shadow: 0 2px 14px rgba(0,0,0,.45);
+}
+.fv-sub {
+  font-size: clamp(12px, 1.2vw, 17px);
+  color: rgba(255,255,255,.92); font-weight: 500;
+  margin-bottom: 2.8%; letter-spacing: .02em;
+  text-shadow: 0 1px 8px rgba(0,0,0,.4);
+}
+/* micro copy above CTA */
+.fv-micro {
+  font-size: clamp(11px, .9vw, 13px);
+  color: rgba(255,255,255,.75); font-weight: 500;
+  margin-bottom: clamp(6px, .7vw, 10px);
+  letter-spacing: .06em;
+}
+/* orange CTA button */
+.fv-cta-btn {
+  display: inline-block;
+  background: var(--orange); color: #fff;
+  font-size: clamp(13px, 1.15vw, 16px); font-weight: 700;
+  padding: clamp(12px,1.2vw,18px) clamp(28px,3vw,48px);
+  border-radius: 50px; letter-spacing: .06em;
+  box-shadow: 0 6px 24px rgba(244,123,32,.50);
+  margin-bottom: clamp(10px, 1.4vw, 18px);
+  transition: opacity .15s, transform .15s;
+}
+.fv-cta-btn:hover { opacity: .88; transform: translateY(-2px); }
+/* gold ribbon image — 大きく・影を強く */
+.fv-ribbon-img {
+  height: clamp(42px, 5vw, 72px); width: auto;
+  filter: drop-shadow(0 3px 10px rgba(0,0,0,.55));
+}
+
+/* ── medals row (bottom-right, absolute) ── */
+.fv-medals {
+  position: absolute;
+  bottom: 0; right: 5%;
+  display: flex; align-items: flex-end; gap: clamp(8px, 1.2vw, 18px);
+  z-index: 3;
+}
+.fv-medals img {
+  height: clamp(120px, 15vw, 210px); width: auto;
+  filter: drop-shadow(0 6px 16px rgba(0,0,0,.4));
+}
+
+/* ── features bar ── */
+.fv-features {
+  background: var(--white);
+  height: clamp(140px, calc(100vw * 220 / 1366), 220px);
+  border-bottom: 1px solid #dde8f2;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 0 24px;
+}
+.fv-feat-head {
+  display: flex; align-items: center; gap: 16px;
+  font-size: clamp(11px, 1vw, 14px); color: #888; font-weight: 500;
+  margin-bottom: clamp(14px, 2vw, 24px);
+}
+.fv-feat-head::before,
+.fv-feat-head::after {
+  content: ''; display: block; width: clamp(40px, 5vw, 80px); height: 1.5px;
+  background: linear-gradient(to right, transparent, #b0c8dc, transparent);
+}
+.fv-feat-icons {
+  max-width: 860px; width: 100%;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+}
+.fv-feat-item {
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+}
+.fv-feat-ic {
+  width: clamp(36px, 3.5vw, 52px); height: clamp(36px, 3.5vw, 52px); flex-shrink: 0;
+  background: var(--blue-light); border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: clamp(16px, 1.8vw, 26px);
+}
+.fv-feat-txt {
+  font-size: clamp(10px, .85vw, 13px); color: #444;
+  font-weight: 500; line-height: 1.55;
+}
+
+/* ============================================================
+   ② PAIN
+============================================================ */
+.pain-sec {
+  background: #F0F7FD;
+  padding: 72px 0 64px;
+}
+.pain-in {
+  max-width: 1000px; margin: 0 auto; padding: 0 32px;
+}
+/* section label row */
+.pain-label-row {
+  display: flex; align-items: center; justify-content: center; gap: 16px;
+  margin-bottom: 20px;
+}
+.pain-label-row::before,
+.pain-label-row::after {
+  content: ''; display: block; width: 56px; height: 1.5px;
+  background: var(--blue-mid);
+}
+.pain-label {
+  font-size: 13px; font-weight: 700; color: var(--blue-mid); letter-spacing: .1em;
+}
+/* heading */
+.pain-heading {
+  font-size: clamp(22px, 3vw, 32px); font-weight: 900;
+  text-align: center; line-height: 1.45; color: var(--text);
+  margin-bottom: 28px;
+}
+/* body: 2 cols — overflow visible で写真がはみ出せるように */
+.pain-body {
+  display: grid; grid-template-columns: 48% 54%;
+  align-items: stretch; margin-bottom: 0;
+  overflow: visible; position: relative;
+}
+/* left: item cards */
+.pain-items { display: flex; flex-direction: column; gap: 11px; position: relative; z-index: 2; }
+.pain-item {
+  display: flex; align-items: center; gap: 16px;
+  background: rgba(255,255,255,.95);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 12px;
+  padding: 13px 20px;
+  box-shadow: 0 2px 10px rgba(26,95,168,.07);
+}
+.pain-ic {
+  width: 44px; height: 44px; flex-shrink: 0; border-radius: 50%;
+  border: 1.5px solid #A8CCEC;
+  background: rgba(244,249,254,.9);
+  display: flex; align-items: center; justify-content: center;
+}
+.pain-ic svg { width: 22px; height: 22px; }
+.pain-item-txt { font-size: 15px; font-weight: 500; color: var(--text); line-height: 1.5; }
+/* right: photo — 左に被るよう負のマージン */
+.pain-photo {
+  border-radius: 16px; overflow: hidden;
+  box-shadow: 0 8px 28px rgba(0,0,0,.12);
+  position: relative; z-index: 1;
+  margin-left: -20px;
+}
+.pain-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 5%; display: block; min-height: 280px; }
+/* resolve bar — 上に被る */
+.pain-resolve {
+  background: rgba(220,240,252,.92);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 50px;
+  padding: 16px 36px;
+  display: flex; align-items: center; justify-content: center; gap: 14px;
+  position: relative; z-index: 3;
+  margin-top: 44px;
+  box-shadow: 0 4px 16px rgba(26,95,168,.08);
+  background: rgba(220,240,252,.75);
+}
+.pain-resolve-ic { width: 32px; height: 32px; flex-shrink: 0; }
+.pain-resolve-ic svg { width: 32px; height: 32px; }
+.pain-resolve-txt {
+  font-size: clamp(18px, 2vw, 26px); font-weight: 900; color: var(--text); letter-spacing: .02em;
+}
+
+/* ============================================================
+   ③ BENEFIT
+============================================================ */
+.benefit-sec {
+  background: var(--white);
+  padding: 64px 0;
+}
+.benefit-box {
+  max-width: 960px; margin: 0 auto; padding: 48px 48px 52px;
+  border: 2px solid #C0CFEE;
+  border-radius: 4px;
+}
+.benefit-label {
+  display: block; text-align: center;
+  font-size: 13px; font-weight: 700; color: var(--blue);
+  letter-spacing: .1em; margin-bottom: 14px;
+}
+.benefit-heading {
+  font-size: clamp(22px, 2.8vw, 30px); font-weight: 900;
+  text-align: center; color: var(--text);
+  margin-bottom: 40px; line-height: 1.4;
+}
+/* 3 cols */
+.benefit-cols {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;
+}
+.benefit-col { display: flex; flex-direction: column; }
+/* number badge */
+.benefit-num {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--blue); color: #fff;
+  font-size: 13px; font-weight: 900; letter-spacing: .04em;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px; flex-shrink: 0;
+}
+/* icon + title row */
+.benefit-icon-title {
+  display: flex; align-items: flex-start; gap: 14px;
+  margin-bottom: 16px;
+}
+.benefit-icon { width: 44px; height: 44px; flex-shrink: 0; }
+.benefit-icon svg { width: 44px; height: 44px; }
+.benefit-title {
+  font-size: 15px; font-weight: 900; line-height: 1.55; color: var(--text);
+}
+.benefit-title em { color: var(--blue); font-style: normal; }
+/* divider */
+.benefit-divider {
+  width: 100%; height: 1px; background: #E0EAF5; margin-bottom: 16px;
+}
+.benefit-desc {
+  font-size: 13px; color: var(--gray-text); line-height: 1.85;
+}
+
+/* ============================================================
+   ④ STATS
+============================================================ */
+.stats-sec { background: var(--white); padding: 72px 0 60px; }
+.stats-in  { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+/* label row */
+.stats-label-row {
+  display: flex; align-items: center; justify-content: center; gap: 16px;
+  margin-bottom: 18px;
+}
+.stats-label-row::before,
+.stats-label-row::after {
+  content: ''; display: block; width: 56px; height: 1.5px; background: #B0C8DC;
+}
+.stats-label {
+  font-size: 13px; font-weight: 700; color: #888; letter-spacing: .1em;
+}
+/* heading */
+.stats-heading {
+  font-size: clamp(24px, 3vw, 34px); font-weight: 900;
+  text-align: center; color: var(--text); margin-bottom: 52px;
+}
+/* 3 cols */
+.stats-cols {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 16px; margin-bottom: 28px;
+}
+.stat-col { text-align: center; }
+/* icon circle */
+.stat-ic-wrap {
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px;
+}
+.stat-ic-wrap img { width: 100px; height: 100px; object-fit: contain; }
+/* label */
+.stat-lbl { font-size: 14px; color: var(--text); font-weight: 500; margin-bottom: 8px; }
+/* number */
+.stat-num {
+  font-size: clamp(36px, 5vw, 56px); font-weight: 900;
+  color: var(--blue); line-height: 1; letter-spacing: -.02em;
+}
+.stat-num-unit { font-size: clamp(20px, 2.5vw, 28px); font-weight: 900; color: var(--blue); }
+.stat-num-sub  { font-size: 16px; font-weight: 700; color: var(--blue); margin-top: 4px; }
+/* source note */
+.stat-src { text-align: center; font-size: 12px; color: #aaa; }
+
+/* ============================================================
+   ⑤ TEACHERS
+============================================================ */
+.teachers-sec {
+  background: var(--blue-pale);
+  padding: 80px 0;
+}
+.teachers-label-row {
+  display: flex; align-items: center; justify-content: center; gap: 16px;
+  margin-bottom: 18px;
+}
+.teachers-label-row::before,
+.teachers-label-row::after {
+  content: ''; display: block; width: 56px; height: 1.5px;
+  background: var(--blue-mid);
+}
+.teachers-label {
+  font-size: 13px; font-weight: 700; color: var(--blue-mid); letter-spacing: .1em;
+}
+.teachers-heading {
+  font-size: clamp(24px, 3vw, 34px); font-weight: 900;
+  text-align: center; color: var(--text); margin-bottom: 14px; line-height: 1.4;
+}
+.teachers-heading span { color: var(--blue); }
+.teachers-sub {
+  text-align: center; font-size: 14px; color: var(--gray-text);
+  line-height: 1.85; margin-bottom: 56px;
+}
+.teacher-list { display: flex; flex-direction: column; gap: 32px; }
+.teacher-item {
+  background: var(--white); border-radius: 20px; overflow: hidden;
+  box-shadow: 0 6px 28px rgba(26,95,168,.08);
+  display: grid; grid-template-columns: 320px 1fr; min-height: 320px;
+}
+.teacher-item--rev { grid-template-columns: 1fr 320px; }
+.teacher-photo-wrap { overflow: hidden; }
+.teacher-photo-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+.teacher-item--rev .teacher-photo-wrap { order: 2; }
+.teacher-item--rev .teacher-info       { order: 1; }
+.teacher-info {
+  padding: 36px 40px;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.teacher-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.teacher-tag {
+  font-size: 11px; font-weight: 700; color: var(--blue);
+  background: var(--blue-light); border-radius: 20px; padding: 4px 14px;
+  letter-spacing: .04em;
+}
+.teacher-name {
+  font-size: clamp(22px, 2.5vw, 28px); font-weight: 900; color: var(--text);
+  margin-bottom: 16px; letter-spacing: .02em;
+}
+.teacher-name small {
+  font-size: 13px; font-weight: 500; color: var(--gray-text); margin-left: 8px; letter-spacing: 0;
+}
+.teacher-desc {
+  font-size: 14px; color: var(--gray-text); line-height: 1.85; margin-bottom: 20px;
+}
+.teacher-quote {
+  background: var(--blue-pale); border-left: 3px solid var(--blue);
+  border-radius: 0 10px 10px 0; padding: 12px 18px;
+  font-size: 13.5px; color: var(--blue); font-weight: 500;
+  line-height: 1.75; font-style: normal;
+}
+
+/* ============================================================
+   ⑥ REVIEWS
+============================================================ */
+.reviews-sec {
+  background: var(--blue-pale);
+  padding: 80px 0;
+}
+.reviews-label-row {
+  display: flex; align-items: center; justify-content: center; gap: 16px;
+  margin-bottom: 18px;
+}
+.reviews-label-row::before,
+.reviews-label-row::after {
+  content: ''; display: block; width: 56px; height: 1.5px;
+  background: var(--blue-mid);
+}
+.reviews-label {
+  font-size: 13px; font-weight: 700; color: var(--blue-mid); letter-spacing: .1em;
+}
+.reviews-heading {
+  font-size: clamp(22px, 3vw, 32px); font-weight: 900;
+  text-align: center; color: var(--text); margin-bottom: 40px; line-height: 1.4;
+}
+.reviews-heading em { color: var(--blue); font-style: normal; }
+.reviews-cols {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 20px; margin-bottom: 52px;
+  align-items: stretch;
+}
+.review-card {
+  background: var(--white); border-radius: 18px; padding: 26px 26px 22px;
+  box-shadow: 0 4px 20px rgba(26,95,168,.07);
+  border: 1.5px solid #D8EAF8;
+  display: flex; flex-direction: column;
+}
+/* large opening quote */
+.review-qq {
+  font-size: 64px; font-weight: 900; color: var(--blue);
+  font-family: Georgia, 'Times New Roman', serif;
+  line-height: .9; margin-bottom: 14px; display: block;
+  opacity: .7; letter-spacing: -.04em;
+}
+/* photo + text side by side */
+.review-body {
+  display: flex; align-items: flex-start; gap: 16px;
+  margin-bottom: 20px; flex: 1;
+}
+.review-photo {
+  width: 130px; height: 150px; border-radius: 10px;
+  object-fit: cover; object-position: center top; flex-shrink: 0;
+}
+.review-txt {
+  font-size: 13.5px; line-height: 1.9; color: var(--text);
+}
+/* divider + attribution */
+.review-divider { height: 1px; background: #E0EAF5; margin-bottom: 14px; }
+.review-attr {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 13px; color: var(--gray-text); font-weight: 700;
+}
+.review-attr-ic { flex-shrink: 0; color: var(--blue-mid); }
+
+/* ============================================================
+   ⑦ PRICING
+============================================================ */
+.pricing-sec { background: var(--blue-pale); padding: 80px 0; }
+.pricing-label-row {
+  display: flex; align-items: center; justify-content: center; gap: 16px;
+  margin-bottom: 18px;
+}
+.pricing-label-row::before,
+.pricing-label-row::after {
+  content: ''; display: block; width: 56px; height: 1.5px; background: var(--blue-mid);
+}
+.pricing-label { font-size: 13px; font-weight: 700; color: var(--blue-mid); letter-spacing: .1em; }
+.pricing-heading {
+  font-size: clamp(22px, 3vw, 32px); font-weight: 900;
+  text-align: center; color: var(--text); margin-bottom: 36px; line-height: 1.4;
+}
+/* 0円バー */
+.pricing-zero-bar {
+  display: flex; align-items: center; justify-content: center; gap: 18px;
+  background: var(--white); border-radius: 14px; border: 1.5px solid #D8EAF8;
+  padding: 20px 40px; margin: 0 auto 36px; max-width: 460px;
+}
+.pricing-yen-ic {
+  width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--blue);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; color: var(--blue); font-size: 22px; font-weight: 900;
+}
+.pricing-zero-label { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+.pricing-zero-val   { font-size: 26px; font-weight: 900; color: var(--orange); line-height: 1.2; }
+/* plan cards */
+.pricing-cols {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 16px; margin-bottom: 24px; align-items: stretch;
+}
+.plan-card {
+  background: var(--white); border-radius: 16px; padding: 32px 20px 28px;
+  text-align: center; border: 1.5px solid #D8EAF8; position: relative;
+  display: flex; flex-direction: column; align-items: center;
+}
+.plan-card.popular {
+  border: 2px solid var(--blue);
+  box-shadow: 0 8px 32px rgba(26,95,168,.12);
+}
+.pop-badge {
+  position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+  background: var(--blue); color: #fff; font-size: 11px; font-weight: 700;
+  padding: 5px 20px; border-radius: 20px; white-space: nowrap; letter-spacing: .06em;
+}
+.plan-name-tag {
+  display: inline-block; background: var(--blue-light); color: var(--blue);
+  font-size: 12px; font-weight: 700; padding: 5px 18px;
+  border-radius: 20px; letter-spacing: .04em; margin-bottom: 14px;
+}
+.plan-cnt  { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 12px; }
+.plan-price {
+  font-size: clamp(28px, 3.5vw, 38px); font-weight: 900;
+  color: var(--blue); line-height: 1; margin-bottom: 14px; letter-spacing: -.02em;
+}
+.plan-price .yen   { font-size: .6em; vertical-align: top; margin-top: .22em; }
+.plan-price .tilde { font-size: .65em; }
+.plan-desc { font-size: 13px; color: var(--gray-text); line-height: 1.65; margin-bottom: 22px; }
+.plan-icon { width: 44px; height: 44px; margin: auto auto 0; color: var(--blue); }
+.plan-icon svg { width: 44px; height: 44px; }
+/* note row */
+.pricing-note {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  font-size: 13px; color: var(--gray-text); font-weight: 500;
+}
+.pricing-note-ic { flex-shrink: 0; color: var(--blue); }
+
+/* ============================================================
+   ⑧ STEPS
+============================================================ */
+.steps-wrap { position: relative; }
+.steps-cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+.steps-cols::before {
+  content: ''; position: absolute; top: 34px; left: 12.5%; width: 75%;
+  height: 2px; background: var(--border); z-index: 0;
+}
+.step-item { text-align: center; padding: 0 8px; position: relative; z-index: 1; }
+.step-circle {
+  width: 70px; height: 70px; border-radius: 50%;
+  background: var(--blue); color: #fff;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  margin: 0 auto 18px; box-shadow: 0 4px 16px rgba(26,95,168,.22); line-height: 1.2;
+}
+.step-circle .step-label { font-size: 9px; font-weight: 700; letter-spacing: .08em; }
+.step-circle .step-n     { font-size: 22px; font-weight: 900; }
+.step-title { font-size: 13.5px; font-weight: 700; color: var(--blue); margin-bottom: 6px; }
+.step-desc  { font-size: 11.5px; color: var(--gray-text); line-height: 1.65; }
+.steps-note-bar {
+  margin-top: 32px; text-align: center;
+  font-size: 13px; font-weight: 700; color: var(--blue);
+}
+
+/* ============================================================
+   ⑨ FAQ
+============================================================ */
+.faq-sec { background: var(--white); padding: 80px 0; }
+.faq-heading {
+  font-size: clamp(26px, 3.5vw, 38px); font-weight: 900;
+  text-align: center; color: var(--text); margin-bottom: 12px;
+}
+.faq-sub {
+  text-align: center; font-size: 14px; color: var(--gray-text); margin-bottom: 48px;
+}
+.faq-list {
+  max-width: 680px; margin: 0 auto;
+  display: flex; flex-direction: column; gap: 16px;
+}
+details.faq-card {
+  background: var(--white); border-radius: 14px;
+  box-shadow: 0 2px 16px rgba(26,95,168,.08);
+  border: 1px solid #E4EFF8; overflow: hidden;
+}
+details.faq-card summary {
+  display: flex; align-items: center; gap: 14px;
+  padding: 20px 22px; cursor: pointer;
+  list-style: none; user-select: none;
+}
+details.faq-card summary::-webkit-details-marker { display: none; }
+.faq-q-badge {
+  width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+  background: var(--blue); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; font-weight: 900;
+}
+.faq-q-txt {
+  font-size: 15px; font-weight: 700; color: var(--text); flex: 1; line-height: 1.5;
+}
+.faq-chevron {
+  flex-shrink: 0; color: var(--blue);
+  transition: transform .22s;
+}
+details.faq-card[open] .faq-chevron { transform: rotate(180deg); }
+.faq-sep {
+  margin: 0 22px; border: none;
+  border-top: 1.5px dashed #C8DFF0;
+}
+.faq-a-row {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 16px 22px 22px;
+}
+.faq-a-badge {
+  width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+  background: var(--blue-light); color: var(--blue);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; font-weight: 700;
+}
+.faq-a-txt {
+  font-size: 14px; color: var(--gray-text); line-height: 1.85; flex: 1; padding-top: 6px;
+}
+
+/* ============================================================
+   ⑩ FINAL CTA
+============================================================ */
+.final-cta-sec {
+  position: relative; width: 100%;
+  height: clamp(380px, 40vw, 500px);
+  overflow: hidden;
+  background: var(--white);
+}
+/* 画像は右半分に配置 */
+.final-cta-bg {
+  position: absolute; right: 0; top: 0;
+  width: 60%; height: 100%; z-index: 0;
+}
+.final-cta-bg img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center 10%;
+}
+/* 白→透明グラデーションで画像と白エリアをなじませる */
+.final-cta-overlay {
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(
+    to right,
+    rgba(255,255,255,1)   0%,
+    rgba(255,255,255,1)   33%,
+    rgba(255,255,255,.82) 46%,
+    rgba(255,255,255,0)   62%
+  );
+}
+.final-cta-body {
+  position: absolute; inset: 0; z-index: 2;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 0 5%;
+  max-width: 54%;
+}
+.final-cta-h2 {
+  font-size: clamp(26px, 3.2vw, 42px); font-weight: 900;
+  color: var(--text); line-height: 1.3; margin-bottom: 16px;
+}
+.final-cta-desc {
+  font-size: 14px; color: var(--gray-text); line-height: 1.85; margin-bottom: 28px;
+}
+.final-cta-note {
+  display: block; font-size: 12.5px; color: var(--gray-text); margin-top: 12px;
+}
+.final-cta-body .btn-orange { align-self: flex-start; }
+
+/* ============================================================
+   FOOTER
+============================================================ */
+footer {
+  background: #1A2A3A; color: rgba(255,255,255,.45);
+  text-align: center; padding: 28px 20px; font-size: 11.5px;
+}
+footer a { color: rgba(255,255,255,.4); }
+footer a:hover { color: rgba(255,255,255,.7); }
+.footer-logo { font-size: 17px; font-weight: 900; color: rgba(255,255,255,.7); margin-bottom: 10px; }
+
+/* ============================================================
+   RESPONSIVE — Tablet (〜1024px)
+============================================================ */
+@media (max-width: 1024px) {
+  /* header */
+  .h-btn-outline       { display: none; }
+
+  /* FV */
+  .fv-h1               { font-size: clamp(28px, 5vw, 48px); }
+  .fv-medals img       { height: clamp(100px, 13vw, 170px); }
+
+  /* BENEFIT */
+  .benefit-box         { margin: 0 24px; }
+
+  /* TEACHERS */
+  .teacher-item,
+  .teacher-item--rev   { grid-template-columns: 280px 1fr; }
+  .teacher-info        { padding: 28px 28px; }
+
+  /* final CTA */
+  .final-cta-in        { gap: 28px; }
+}
+
+/* ============================================================
+   RESPONSIVE — Mobile (〜768px)
+============================================================ */
+@media (max-width: 768px) {
+  /* ── header ── */
+  header               { height: 52px; }
+  .header-in           { padding: 0 16px; }
+  .logo                { font-size: 17px; }
+  .h-btn-fill          { font-size: 11px; padding: 7px 14px; }
+
+  /* ── FV ── */
+  .fv                  { height: 420px; }
+  .fv-bg img           { height: 420px; object-fit: cover; }
+  .fv-content          { padding: 28px 20px 140px; }
+  .fv-h1               { font-size: 30px; margin-bottom: 8px; }
+  .fv-sub              { font-size: 13px; margin-bottom: 20px; }
+  .fv-cta-btn          { font-size: 14px; padding: 13px 28px; margin-bottom: 12px; }
+  .fv-ribbon-img       { height: 36px; }
+  .fv-medals           { right: 50%; transform: translateX(50%); bottom: 0; gap: 6px; }
+  .fv-medals img       { height: 110px; }
+
+  /* ── features bar ── */
+  .fv-features         { height: auto; padding: 20px 16px; }
+  .fv-feat-icons       { grid-template-columns: repeat(2, 1fr); gap: 14px; max-width: 400px; }
+  .fv-feat-head        { margin-bottom: 16px; }
+
+  /* ── shared ── */
+  section              { padding: 52px 0; }
+  .inner, .inner-lg    { padding: 0 16px; }
+
+  /* ── PAIN ── */
+  .pain-body           { grid-template-columns: 1fr; gap: 20px; }
+  .pain-photo          { margin-left: 0; }
+  .pain-photo img      { min-height: 220px; object-position: center 10%; }
+  .pain-heading        { font-size: 20px; }
+  .pain-resolve        { margin-top: 24px; padding: 14px 24px; border-radius: 16px; }
+  .pain-resolve-txt    { font-size: 18px; }
+
+  /* ── BENEFIT ── */
+  .benefit-box         { margin: 0 16px; padding: 32px 20px 36px; }
+  .benefit-cols        { grid-template-columns: 1fr; gap: 32px; }
+  .benefit-heading     { font-size: 20px; margin-bottom: 28px; }
+
+  /* ── STATS ── */
+  .stats-cols          { grid-template-columns: 1fr; gap: 36px; }
+  .stats-heading       { font-size: 22px; margin-bottom: 36px; }
+  .stat-ic-wrap img    { width: 80px; height: 80px; }
+  .stat-num            { font-size: 38px; }
+
+  /* ── TEACHERS ── */
+  .teachers-sec        { padding: 52px 0; }
+  .teachers-sub        { margin-bottom: 32px; font-size: 13px; }
+  .teacher-item,
+  .teacher-item--rev   { grid-template-columns: 1fr; min-height: unset; }
+  .teacher-photo-wrap  { height: 260px; }
+  .teacher-item--rev .teacher-photo-wrap { order: 0; }
+  .teacher-item--rev .teacher-info       { order: 0; }
+  .teacher-info        { padding: 24px 20px; }
+  .teacher-name        { font-size: 20px; margin-bottom: 10px; }
+  .teacher-desc        { font-size: 13px; }
+
+  /* ── reviews ── */
+  .reviews-cols        { grid-template-columns: 1fr; gap: 16px; }
+  .review-photo        { width: 72px; height: 72px; }
+
+  /* ── pricing ── */
+  .pricing-cols        { grid-template-columns: 1fr; gap: 20px; }
+  .pricing-zero-bar    { padding: 16px 24px; }
+  .pricing-zero-val    { font-size: 22px; }
+
+  /* ── steps ── */
+  .steps-cols          { grid-template-columns: 1fr 1fr; gap: 28px 16px; }
+  .steps-cols::before  { display: none; }
+
+  /* ── faq ── */
+  .faq-q-txt           { font-size: 14px; }
+  .faq-a-txt           { font-size: 13px; }
+
+  /* ── final CTA ── */
+  .final-cta-sec       { height: 420px; }
+  .final-cta-bg        { width: 100%; }
+  .final-cta-overlay   {
+    background: linear-gradient(
+      to right,
+      rgba(255,255,255,1)   0%,
+      rgba(255,255,255,.95) 45%,
+      rgba(255,255,255,.5)  70%,
+      rgba(255,255,255,0)   100%
+    );
+  }
+  .final-cta-body      { max-width: 75%; padding: 0 24px; }
+  .final-cta-h2        { font-size: 26px; }
+  .final-cta-desc      { font-size: 13px; margin-bottom: 20px; }
+}
+
+/* ============================================================
+   RESPONSIVE — Small Mobile (〜480px)
+============================================================ */
+@media (max-width: 480px) {
+  .fv                  { height: 360px; }
+  .fv-bg img           { height: 360px; }
+  .fv-content          { padding: 22px 16px 130px; }
+  .fv-h1               { font-size: 26px; }
+  .fv-medals img       { height: 92px; }
+  .fv-feat-icons       { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .fv-feat-ic          { width: 34px; height: 34px; font-size: 16px; }
+  .fv-feat-txt         { font-size: 10px; }
+
+  .pain-resolve-txt    { font-size: 16px; }
+  .pain-resolve        { padding: 12px 18px; gap: 10px; }
+
+  .teacher-photo-wrap  { height: 220px; }
+  .teacher-info        { padding: 20px 16px; }
+
+  .steps-cols          { grid-template-columns: 1fr; gap: 24px; }
+  .pricing-cols        { grid-template-columns: 1fr; }
+  .header-in           { gap: 8px; }
+  .h-btn-fill          { white-space: nowrap; }
+}
+</style>
+</head>
+<body>
+
+<!-- ━━━━ HEADER ━━━━ -->
+<header>
+  <div class="header-in">
+    <a href="#" class="logo">Speak<span>ly</span></a>
+    <nav class="header-nav">
+      <a href="#trial" class="h-btn-outline">今すぐ体験・登録・参加する</a>
+      <a href="#trial" class="h-btn-fill">無料体験レッスンへ申し込む</a>
+    </nav>
+  </div>
+</header>
+
+
+<!-- ━━━━ ① FIRST VIEW ━━━━ -->
+<section class="fv">
+  <!-- background image -->
+  <div class="fv-bg">
+    <img src="images/FV.jpg" alt="スキマ時間が英語力になる">
+  </div>
+  <!-- gradient overlay -->
+  <div class="fv-overlay"></div>
+
+  <!-- content -->
+  <div class="fv-content">
+    <div class="fv-text-block">
+      <h1 class="fv-h1">スキマ時間が、<br>英語力になる。</h1>
+      <p class="fv-sub">忙しい30代でも続けられるオンライン英会話</p>
+      <p class="fv-micro">↓ まずは無料で試してみる</p>
+      <a href="#trial" class="fv-cta-btn">無料体験レッスンに申し込む</a>
+      <img src="images/素材1.jpg" alt="今なら2回無料・登録1分" class="fv-ribbon-img">
+    </div>
+  </div>
+
+  <!-- medal badges (absolute bottom-right) -->
+  <div class="fv-medals">
+    <img src="images/学習サポート満足度.jpg" alt="学習サポート満足度96%">
+    <img src="images/顧客満足度.jpg"         alt="顧客満足度97%">
+    <img src="images/顧客満足6年連続.jpg"    alt="顧客満足6年連続No.1">
+  </div>
+</section>
+
+<!-- features bar (H:220px) -->
+<div class="fv-features">
+  <div class="fv-feat-head">多くの方に選ばれています</div>
+  <div class="fv-feat-icons">
+    <div class="fv-feat-item">
+      <div class="fv-feat-ic">📅</div>
+      <div class="fv-feat-txt">24時間いつでも<br>予約可能</div>
+    </div>
+    <div class="fv-feat-item">
+      <div class="fv-feat-ic">💻</div>
+      <div class="fv-feat-txt">PC・スマホ<br>どちらもOK</div>
+    </div>
+    <div class="fv-feat-item">
+      <div class="fv-feat-ic">🌐</div>
+      <div class="fv-feat-txt">世界中の講師と<br>話せる</div>
+    </div>
+    <div class="fv-feat-item">
+      <div class="fv-feat-ic">📖</div>
+      <div class="fv-feat-txt">初心者でも安心の<br>サポート体制</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ━━━━ ② PAIN ━━━━ -->
+<section class="pain-sec">
+  <div class="pain-in">
+
+    <!-- section label -->
+    <div class="pain-label-row">
+      <span class="pain-label">こんなお悩みありませんか？</span>
+    </div>
+
+    <!-- heading -->
+    <h2 class="pain-heading">
+      英語を始めたいと思いながら、<br>こんなことで止まっていませんか？
+    </h2>
+
+    <!-- body -->
+    <div class="pain-body">
+
+      <!-- left: trouble items -->
+      <div class="pain-items">
+        <div class="pain-item">
+          <div class="pain-ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#5B9FD9" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+          <span class="pain-item-txt">忙しくてスクールに通う時間がない</span>
+        </div>
+        <div class="pain-item">
+          <div class="pain-ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#5B9FD9" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            </svg>
+          </div>
+          <span class="pain-item-txt">独学では続かなかった経験がある</span>
+        </div>
+        <div class="pain-item">
+          <div class="pain-ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#5B9FD9" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M16 16s-1.5-2-4-2-4 2-4 2"/>
+              <circle cx="9" cy="9" r=".5" fill="#5B9FD9"/>
+              <circle cx="15" cy="9" r=".5" fill="#5B9FD9"/>
+            </svg>
+          </div>
+          <span class="pain-item-txt">本当に上達できるか不安</span>
+        </div>
+      </div>
+
+      <!-- right: photo -->
+      <div class="pain-photo">
+        <img src="images/PAIN①.jpg" alt="悩む女性">
+      </div>
+    </div>
+
+    <!-- resolve bar -->
+    <div class="pain-resolve">
+      <div class="pain-resolve-ic">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#5B9FD9" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18h6M10 22h4M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17H8v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z"/>
+          <line x1="12" y1="2" x2="12" y2=".5"/>
+          <line x1="4.22" y1="4.22" x2="3.1" y2="3.1"/>
+          <line x1="19.78" y1="4.22" x2="20.9" y2="3.1"/>
+        </svg>
+      </div>
+      <span class="pain-resolve-txt">そのお悩み、すべて解決できます。</span>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ━━━━ ③ BENEFIT ━━━━ -->
+<section class="benefit-sec">
+  <div class="benefit-box">
+
+    <span class="benefit-label">Speaklyが選ばれる3つの理由</span>
+    <h2 class="benefit-heading">忙しい方が続けられる、3つのしくみ</h2>
+
+    <div class="benefit-cols">
+
+      <!-- 01 -->
+      <div class="benefit-col">
+        <div class="benefit-num">01</div>
+        <div class="benefit-icon-title">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="#5B9FD9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="24" cy="24" r="18"/>
+              <polyline points="24 12 24 24 32 28"/>
+            </svg>
+          </div>
+          <div class="benefit-title">スキマ時間に、<br><em>いつでも受講できる</em></div>
+        </div>
+        <div class="benefit-divider"></div>
+        <p class="benefit-desc">24時間365日対応。<br>通勤中・昼休み・寝る前の<br>20分〜30分でOK。<br>予約はレッスン5分前まで受付。</p>
+      </div>
+
+      <!-- 02 -->
+      <div class="benefit-col">
+        <div class="benefit-num">02</div>
+        <div class="benefit-icon-title">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="#5B9FD9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="24" cy="14" r="7"/>
+              <path d="M10 42c0-7.7 6.3-14 14-14s14 6.3 14 14"/>
+              <polyline points="30 30 33 34 39 27"/>
+            </svg>
+          </div>
+          <div class="benefit-title">あなただけの<br><em>カリキュラムで、確実に上達</em></div>
+        </div>
+        <div class="benefit-divider"></div>
+        <p class="benefit-desc">レベルチェック後、目標と<br>生活スタイルに合わせた専用プランを設計。<br>回り道なく、最短で伸びる。</p>
+      </div>
+
+      <!-- 03 -->
+      <div class="benefit-col">
+        <div class="benefit-num">03</div>
+        <div class="benefit-icon-title">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="#5B9FD9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 38 18 26 26 32 42 14"/>
+              <polyline points="34 14 42 14 42 22"/>
+            </svg>
+          </div>
+          <div class="benefit-title">続けられる<br><em>仕組みが整っている</em></div>
+        </div>
+        <div class="benefit-divider"></div>
+        <p class="benefit-desc">毎回講師からの<br>フィードバックレポートつき。<br>進捗が見えるから、<br>モチベーションが落ちない。</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ━━━━ ④ STATS ━━━━ -->
+<section class="stats-sec">
+  <div class="stats-in">
+
+    <div class="stats-label-row">
+      <span class="stats-label">実績・数字</span>
+    </div>
+    <h2 class="stats-heading">数字で見る、選ばれる理由</h2>
+
+    <div class="stats-cols">
+
+      <!-- 累計受講生 -->
+      <div class="stat-col">
+        <div class="stat-ic-wrap">
+          <img src="images/People.jpg" alt="累計受講生">
+        </div>
+        <div class="stat-lbl">累計受講生</div>
+        <div class="stat-num">90,000<span class="stat-num-unit">人</span></div>
+        <div class="stat-num-sub">以上</div>
+      </div>
+
+      <!-- 受講生満足度 -->
+      <div class="stat-col">
+        <div class="stat-ic-wrap">
+          <img src="images/Book.jpg" alt="受講生満足度">
+        </div>
+        <div class="stat-lbl">受講生満足度</div>
+        <div class="stat-num">96<span class="stat-num-unit">%</span></div>
+      </div>
+
+      <!-- 顧客満足 No.1 -->
+      <div class="stat-col">
+        <div class="stat-ic-wrap">
+          <img src="images/Trophy.jpg" alt="顧客満足No.1">
+        </div>
+        <div class="stat-lbl">顧客満足 No.1</div>
+        <div class="stat-num">6<span class="stat-num-unit">年連続</span></div>
+      </div>
+
+    </div>
+    <p class="stat-src">※2024年 当社調査</p>
+  </div>
+</section>
+
+
+<!-- ━━━━ ⑤ TEACHERS ━━━━ -->
+<section class="teachers-sec">
+  <div class="inner-lg">
+
+    <div class="teachers-label-row">
+      <span class="teachers-label">講師紹介</span>
+    </div>
+    <h2 class="teachers-heading">プロ講師が、<span>あなたの英語を引き出す</span></h2>
+    <p class="teachers-sub">
+      採用率わずか4%の厳しい選考を通過した、平均教師歴8年以上の講師陣。<br>
+      日本人学習者の弱点を熟知しているから、的確に伸ばせます。
+    </p>
+
+    <div class="teacher-list">
+
+      <!-- Sarah -->
+      <div class="teacher-item">
+        <div class="teacher-photo-wrap">
+          <img src="images/講師①.jpg" alt="Sarah講師">
+        </div>
+        <div class="teacher-info">
+          <div class="teacher-tags">
+            <span class="teacher-tag">カナダ出身</span>
+            <span class="teacher-tag">教師歴12年</span>
+            <span class="teacher-tag">ビジネス英語</span>
+          </div>
+          <h3 class="teacher-name">Sarah <small>（サラ）</small></h3>
+          <p class="teacher-desc">
+            カナダ・トロント出身。日本語も堪能なバイリンガル講師。<br>
+            ビジネス英語・プレゼン英語を専門とし、受講生の「伝えたい気持ち」を<br>
+            丁寧に引き出すスタイルが好評。緊張しやすい方でも安心して話せる、<br>
+            穏やかな雰囲気が魅力です。
+          </p>
+          <blockquote class="teacher-quote">
+            「英語を話す楽しさを一緒に見つけましょう！緊張しなくて大丈夫です。」
+          </blockquote>
+        </div>
+      </div>
+
+      <!-- Yuki -->
+      <div class="teacher-item teacher-item--rev">
+        <div class="teacher-photo-wrap">
+          <img src="images/講師②.jpg" alt="Yuki講師">
+        </div>
+        <div class="teacher-info">
+          <div class="teacher-tags">
+            <span class="teacher-tag">日英バイリンガル</span>
+            <span class="teacher-tag">教師歴9年</span>
+            <span class="teacher-tag">日常英会話</span>
+          </div>
+          <h3 class="teacher-name">Yuki <small>（ユキ）</small></h3>
+          <p class="teacher-desc">
+            日本で生まれ、米国留学後に英語教育の道へ。<br>
+            日本人が苦手な発音・文法の癖を熟知しており、弱点をピンポイントで<br>
+            改善する指導が得意。初心者〜中級者の方に特に支持されているベテラン講師。
+          </p>
+          <blockquote class="teacher-quote">
+            「苦手な部分をピンポイントで改善します。焦らず、一緒に進みましょう。」
+          </blockquote>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ━━━━ ⑥ REVIEWS ━━━━ -->
+<section class="reviews-sec">
+  <div class="inner">
+
+    <div class="reviews-label-row">
+      <span class="reviews-label">受講生の声</span>
+    </div>
+    <h2 class="reviews-heading">続けられた！という声が<em>届いています</em></h2>
+
+    <div class="reviews-cols">
+
+      <!-- review 1 -->
+      <div class="review-card">
+        <span class="review-qq">"</span>
+        <div class="review-body">
+          <img class="review-photo" src="images/受講生①.jpg" alt="受講生①">
+          <p class="review-txt">
+            何度も挫折してきたのに、このスクールは3ヶ月続けられました。先生が毎回フィードバックをくれるので、成長が実感できます。
+          </p>
+        </div>
+        <div class="review-divider"></div>
+        <div class="review-attr">
+          <svg class="review-attr-ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+          </svg>
+          34歳・女性・営業職
+        </div>
+      </div>
+
+      <!-- review 2 -->
+      <div class="review-card">
+        <span class="review-qq">"</span>
+        <div class="review-body">
+          <img class="review-photo" src="images/受講生②.jpg" alt="受講生②">
+          <p class="review-txt">
+            通勤電車の中で予約して、昼休みに受講。忙しい私でも無理なく続けられています。仕事の英語メールが怖くなくなりました。
+          </p>
+        </div>
+        <div class="review-divider"></div>
+        <div class="review-attr">
+          <svg class="review-attr-ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+          </svg>
+          31歳・女性・企画職
+        </div>
+      </div>
+
+    </div>
+
+    <div style="text-align:center;">
+      <a href="#trial" class="btn-orange">今すぐ無料体験を予約する</a>
+      <span class="btn-sub-note">▶ 2回無料・押し売りなし</span>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ━━━━ ⑦ PRICING ━━━━ -->
+<section class="pricing-sec">
+  <div class="inner">
+
+    <div class="pricing-label-row">
+      <span class="pricing-label">料金・プラン</span>
+    </div>
+    <h2 class="pricing-heading">無理なく続けられる、シンプルな料金</h2>
+
+    <!-- 0円バー -->
+    <div class="pricing-zero-bar">
+      <div class="pricing-yen-ic">¥</div>
+      <div>
+        <div class="pricing-zero-label">入学金・教材費</div>
+        <div class="pricing-zero-val">すべて0円</div>
+      </div>
+    </div>
+
+    <!-- plan cards -->
+    <div class="pricing-cols">
+
+      <!-- ライト -->
+      <div class="plan-card">
+        <div class="plan-name-tag">ライト</div>
+        <div class="plan-cnt">月 4回</div>
+        <div class="plan-price"><span class="yen">¥</span>2,750<span class="tilde">〜</span></div>
+        <div class="plan-desc">週1ペースで無理なく</div>
+        <div class="plan-icon">
+          <svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="5" y="8" width="34" height="30" rx="3"/>
+            <line x1="5" y1="17" x2="39" y2="17"/>
+            <line x1="14" y1="4" x2="14" y2="12"/>
+            <line x1="30" y1="4" x2="30" y2="12"/>
+            <rect x="11" y="23" width="5" height="4" rx="1" fill="currentColor" stroke="none"/>
+            <rect x="20" y="23" width="5" height="4" rx="1" fill="currentColor" stroke="none"/>
+            <rect x="29" y="23" width="5" height="4" rx="1" fill="currentColor" stroke="none"/>
+            <rect x="11" y="30" width="5" height="4" rx="1" fill="currentColor" stroke="none"/>
+            <rect x="20" y="30" width="5" height="4" rx="1" fill="currentColor" stroke="none"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- スタンダード (popular) -->
+      <div class="plan-card popular">
+        <div class="pop-badge">人気</div>
+        <div class="plan-name-tag">スタンダード</div>
+        <div class="plan-cnt">月 8回</div>
+        <div class="plan-price"><span class="yen">¥</span>4,600<span class="tilde">〜</span></div>
+        <div class="plan-desc">着実に伸ばしたい方に</div>
+        <div class="plan-icon">
+          <svg viewBox="0 0 44 44" fill="currentColor">
+            <polygon points="22,4 26.5,15.5 39,16.5 29.5,25.5 32.5,38 22,31.5 11.5,38 14.5,25.5 5,16.5 17.5,15.5"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- プレミアム -->
+      <div class="plan-card">
+        <div class="plan-name-tag">プレミアム</div>
+        <div class="plan-cnt">月 12回</div>
+        <div class="plan-price"><span class="yen">¥</span>6,800<span class="tilde">〜</span></div>
+        <div class="plan-desc">短期集中で<br>上達したい方に</div>
+        <div class="plan-icon">
+          <svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 33 L11 13 L19 23 L22 9 L25 23 L33 13 L38 33 Z"/>
+            <line x1="6" y1="38" x2="38" y2="38"/>
+            <circle cx="11" cy="13" r="2" fill="currentColor" stroke="none"/>
+            <circle cx="33" cy="13" r="2" fill="currentColor" stroke="none"/>
+            <circle cx="22" cy="9"  r="2" fill="currentColor" stroke="none"/>
+          </svg>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- note -->
+    <div class="pricing-note">
+      <svg class="pricing-note-ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <polyline points="9 12 11.5 14.5 15.5 9.5"/>
+      </svg>
+      回数は毎月変更OK。ライフスタイルに合わせて調整できます。
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ━━━━ ⑧ STEPS ━━━━ -->
+<section class="sec-blue" id="trial">
+  <div class="inner">
+    <span class="sec-label">無料体験の流れ</span>
+    <h2 class="sec-title">無料体験は、<em>たった4ステップ</em></h2>
+
+    <div class="steps-wrap">
+      <div class="steps-cols">
+        <div class="step-item">
+          <div class="step-circle">
+            <span class="step-label">STEP</span>
+            <span class="step-n">1</span>
+          </div>
+          <div class="step-title">会員登録</div>
+          <p class="step-desc">2分・無料</p>
+        </div>
+        <div class="step-item">
+          <div class="step-circle">
+            <span class="step-label">STEP</span>
+            <span class="step-n">2</span>
+          </div>
+          <div class="step-title">レッスン予約</div>
+          <p class="step-desc">好きな時間・<br>好きな講師を選ぶ</p>
+        </div>
+        <div class="step-item">
+          <div class="step-circle">
+            <span class="step-label">STEP</span>
+            <span class="step-n">3</span>
+          </div>
+          <div class="step-title">体験レッスン</div>
+          <p class="step-desc">20分・<br>緊張しなくてOK</p>
+        </div>
+        <div class="step-item">
+          <div class="step-circle">
+            <span class="step-label">STEP</span>
+            <span class="step-n">4</span>
+          </div>
+          <div class="step-title">フィードバック受け取り</div>
+          <p class="step-desc">自分の課題が<br>明確に</p>
+        </div>
+      </div>
+      <p class="steps-note-bar">✅ 体験後の勧誘・押し売りは一切ありません</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ━━━━ ⑨ FAQ ━━━━ -->
+<section class="faq-sec">
+  <div class="inner">
+
+    <h2 class="faq-heading">よくある質問</h2>
+    <p class="faq-sub">はじめての方からよくいただくご質問をまとめました。</p>
+
+    <div class="faq-list">
+
+      <details class="faq-card" open>
+        <summary>
+          <div class="faq-q-badge">Q</div>
+          <span class="faq-q-txt">Q1：英語が全くできなくても大丈夫ですか？</span>
+          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </summary>
+        <hr class="faq-sep">
+        <div class="faq-a-row">
+          <div class="faq-a-badge">A</div>
+          <p class="faq-a-txt">はい、まったく問題ありません。<br>初心者向けのコースをご用意しています。</p>
+        </div>
+      </details>
+
+      <details class="faq-card" open>
+        <summary>
+          <div class="faq-q-badge">Q</div>
+          <span class="faq-q-txt">Q2：途中でプランを変更できますか？</span>
+          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </summary>
+        <hr class="faq-sep">
+        <div class="faq-a-row">
+          <div class="faq-a-badge">A</div>
+          <p class="faq-a-txt">毎月変更できます。<br>忙しい月は回数を流らすなど、柔軟に対応できます。</p>
+        </div>
+      </details>
+
+      <details class="faq-card" open>
+        <summary>
+          <div class="faq-q-badge">Q</div>
+          <span class="faq-q-txt">Q3：体験レッスン後に自動的に課金されますか？</span>
+          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </summary>
+        <hr class="faq-sep">
+        <div class="faq-a-row">
+          <div class="faq-a-badge">A</div>
+          <p class="faq-a-txt">されません。<br>体験後にご自身でプランをお選びいただきます。</p>
+        </div>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ━━━━ ⑩ FINAL CTA ━━━━ -->
+<section class="final-cta-sec">
+  <div class="final-cta-bg">
+    <img src="images/Final CTA.jpg" alt="オンライン英会話を楽しむ女性">
+  </div>
+  <div class="final-cta-overlay"></div>
+  <div class="final-cta-body">
+    <h2 class="final-cta-h2">まず、<br>1回試してみませんか？</h2>
+    <p class="final-cta-desc">
+      登録）2分・無料・押し売りなし。<br>
+      スキマ時間に、新しい自分をはじめよう。
+    </p>
+    <a href="#trial" class="btn-orange">今すぐ無料体験レッスンを予約する</a>
+    <span class="final-cta-note">＞ 2回無料・いつでもキャンセルOK</span>
+  </div>
+</section>
+
+
+<!-- ━━━━ FOOTER ━━━━ -->
+<footer>
+  <div class="footer-logo">Speakly</div>
+  <p>© 2024 Speakly（スピークリー）｜<a href="#">プライバシーポリシー</a>｜<a href="#">利用規約</a></p>
+  <p style="margin-top:6px;">※このサイトはポートフォリオ目的で制作した架空のサービスです。</p>
+</footer>
+
+</body>
+</html>
